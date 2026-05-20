@@ -1,0 +1,46 @@
+package fila;
+
+public class FilaReserva {
+
+    private NoFila inicio;
+    private NoFila fim;
+
+    public void enqueue(String nome) {
+        NoFila novo = new NoFila(nome);
+        if(fim == null) {
+            inicio = novo;
+            fim = novo;
+            return;
+        }
+        fim.proximo = novo;
+        fim = novo;
+    }
+
+    public String dequeue() {
+        if(inicio == null)
+            return null;
+        
+        String nome = inicio.nome;
+        inicio = inicio.proximo;
+        if(inicio == null)
+            fim = null;
+        return nome;
+    }
+
+    public void mostrarFila() {
+        System.out.println(getFilaComoString());
+    }
+
+    public String getFilaComoString() {
+        if (inicio == null) return "Fila vazia.";
+        StringBuilder sb = new StringBuilder();
+        NoFila atual = inicio;
+        int pos = 1;
+        while (atual != null) {
+            sb.append(pos).append(". ").append(atual.nome).append("\n");
+            atual = atual.proximo;
+            pos++;
+        }
+        return sb.toString();
+    }
+}
